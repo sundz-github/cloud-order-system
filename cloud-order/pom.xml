@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.cloud.order.system</groupId>
-        <artifactId>order-system</artifactId>
+        <artifactId>cloud-order-system</artifactId>
         <version>1.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
