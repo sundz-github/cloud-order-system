@@ -15,7 +15,8 @@
 
     <sql id="Base_Column_List">
     id, order_no, customer, goods, payment_id, score_id, insert_time, update_time
-  </sql>
+    </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
