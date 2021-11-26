@@ -1,4 +1,4 @@
-package com.cloud.common.api.entity;
+package com.cloud.common.entity;
 
 import lombok.Data;
 
