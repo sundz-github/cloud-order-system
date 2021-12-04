@@ -22,6 +22,18 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>3.0.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--com.cloud.common.api-->
+        <dependency>
+            <groupId>com.cloud.common.api</groupId>
+            <artifactId>cloud-common-api</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!-- mybatis-spring-boot-starter -->
         <dependency>

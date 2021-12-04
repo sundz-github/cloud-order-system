@@ -22,4 +22,5 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url: http://eureka.server.com:1010/eureka/  #服务注册地址
+    service-url:
+      defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
