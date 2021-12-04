@@ -30,4 +30,20 @@ public class CloudScoreService {
         scoreMapper.insert(insert);
         return insert.getId();
     }
+
+    /**
+     * 查询
+     * @param id
+     * @return {@link ScoreVO}
+     */
+    public ScoreVO query(Integer id) {
+        CloudScore cloudScore = scoreMapper.selectByPrimaryKey(id);
+        if (null != cloudScore) {
+            ScoreVO vo = new ScoreVO();
+            BeanUtils.copyProperties(cloudScore, vo);
+            return vo;
+        }
+        return null;
+    }
+
 }

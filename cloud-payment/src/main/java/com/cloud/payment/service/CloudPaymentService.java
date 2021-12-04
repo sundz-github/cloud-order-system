@@ -32,4 +32,19 @@ public class CloudPaymentService {
         paymentMapper.insert(insert);
         return insert.getId();
     }
+
+    /**
+     * 查询
+     * @param id
+     * @return {@link PaymentVO}
+     */
+    public PaymentVO query(Integer id) {
+        CloudPayment payment = paymentMapper.selectByPrimaryKey(id);
+        if (null != payment) {
+            PaymentVO vo = new PaymentVO();
+            BeanUtils.copyProperties(payment, vo);
+            return vo;
+        }
+        return null;
+    }
 }

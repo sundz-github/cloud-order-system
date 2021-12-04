@@ -3,6 +3,8 @@ package com.cloud.payment.controller;
 import com.cloud.common.entity.PaymentVO;
 import com.cloud.payment.service.CloudPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +26,10 @@ public class CloudPaymentController {
     @PostMapping("commit")
     public Integer commit(@RequestBody PaymentVO paymentVO) {
         return paymentService.commit(paymentVO);
+    }
+
+    @GetMapping("{id}")
+    public PaymentVO query(@PathVariable("id") Integer id) {
+        return paymentService.query(id);
     }
 }
