@@ -31,6 +31,6 @@ public class CloudOrderController {
 
     @GetMapping("{id}")
     public OrderInfoVO query(@PathVariable("id") Integer id){
-        return null;
+        return orderService.query(id);
     }
 }

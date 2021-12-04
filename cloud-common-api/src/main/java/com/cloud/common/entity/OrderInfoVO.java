@@ -31,8 +31,14 @@ public class OrderInfoVO {
      */
     private String goods;
 
+    /**
+     * 支付信息
+     */
     private PaymentVO paymentVO;
 
+    /**
+     * 分数
+     */
     private ScoreVO scoreVO;
 
 }
