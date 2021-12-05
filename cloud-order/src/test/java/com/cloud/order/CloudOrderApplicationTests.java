@@ -2,6 +2,7 @@ package com.cloud.order;
 
 import com.cloud.common.entity.OrderInfoVO;
 import com.cloud.common.utils.RequestUtil;
+import com.cloud.order.feign.CloudPaymentFeign;
 import com.cloud.order.mapper.CloudOrderMapper;
 import com.cloud.order.service.CloudOrderService;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ class CloudOrderApplicationTests {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private CloudPaymentFeign paymentFeign;
+
     private static final String PAYMENT_URL = "http://localhost:3031/payment/";
 
     @Test
@@ -35,6 +39,11 @@ class CloudOrderApplicationTests {
     @Test
     public void redisTempleteTest() throws Exception {
         System.out.println(InetAddress.getLocalHost().getHostAddress() + ":"+RequestUtil.getReuqestPort());
+    }
+
+    @Test
+    public void feignTest() throws Exception{
+        System.out.println(paymentFeign.query(1));
     }
 
 

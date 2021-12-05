@@ -5,12 +5,12 @@ import com.cloud.common.entity.OrderVO;
 import com.cloud.common.entity.PaymentVO;
 import com.cloud.common.entity.ScoreVO;
 import com.cloud.order.entity.CloudOrder;
+import com.cloud.order.feign.CloudPaymentFeign;
+import com.cloud.order.feign.CloudScoreFeign;
 import com.cloud.order.mapper.CloudOrderMapper;
-import org.apache.commons.lang3.builder.ToStringExclude;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +23,7 @@ import javax.annotation.Resource;
  * @date 2021/12/4 19:15
  */
 @Service
+@Log4j2
 public class CloudOrderService {
 
     @Resource
@@ -30,6 +31,12 @@ public class CloudOrderService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private CloudPaymentFeign paymentFeign;
+
+    @Autowired
+    CloudScoreFeign scoreFeign;
 
     private static final String PAYMENT_URL = /*"http://localhost:3031/payment/"*/ "http://cloud-payment/payment/";
 
@@ -62,16 +69,21 @@ public class CloudOrderService {
         if (null != cloudOrder) {
             BeanUtils.copyProperties(cloudOrder, vo);
         }
-        ResponseEntity<PaymentVO> paymentEntity = restTemplate.getForEntity(PAYMENT_URL+"{id}", PaymentVO.class, id);
-        if (paymentEntity.getStatusCode() == HttpStatus.OK) {
-            vo.setPaymentVO(paymentEntity.getBody());
-        }
-        ResponseEntity<ScoreVO> scoreEntity = restTemplate.getForEntity(SCORE_URL+"{id}", ScoreVO.class, id);
-        if (HttpStatus.OK == scoreEntity.getStatusCode()) {
-            vo.setScoreVO(scoreEntity.getBody());
+        // ResponseEntity<PaymentVO> paymentEntity = restTemplate.getForEntity(PAYMENT_URL+"{id}", PaymentVO.class, id);
+        try {
+            PaymentVO payment = paymentFeign.query(id);
+            if (null != payment) {
+                vo.setPaymentVO(payment);
+            }
+            // ResponseEntity<ScoreVO> scoreEntity = restTemplate.getForEntity(SCORE_URL+"{id}", ScoreVO.class, id);
+            ScoreVO score = scoreFeign.query(id);
+            if (null != score) {
+                vo.setScoreVO(score);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
         return vo;
     }
-
 
 }
