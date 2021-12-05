@@ -1,6 +1,7 @@
 package com.cloud.common.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * <p> 订单 </p>
@@ -9,6 +10,7 @@ import lombok.Data;
  * @date 2021/11/21 19:19
  */
 @Data
+@ToString
 public class OrderVO {
 
     /**

@@ -1,12 +1,15 @@
 package com.cloud.score.service;
 
 import com.cloud.common.entity.ScoreVO;
+import com.cloud.common.utils.RequestUtil;
 import com.cloud.score.entity.CloudScore;
 import com.cloud.score.mapper.CloudScoreMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.net.InetAddress;
 
 /**
  * <p>  </p>
@@ -15,6 +18,7 @@ import javax.annotation.Resource;
  * @date 2021/12/4 19:26
  */
 @Service
+@Log4j2
 public class CloudScoreService {
 
     @Resource
@@ -36,7 +40,8 @@ public class CloudScoreService {
      * @param id
      * @return {@link ScoreVO}
      */
-    public ScoreVO query(Integer id) {
+    public ScoreVO query(Integer id) throws Exception{
+        log.info("积分服务ip信息:{}", InetAddress.getLocalHost().getHostAddress() + ":"+ RequestUtil.getReuqestPort());
         CloudScore cloudScore = scoreMapper.selectByPrimaryKey(id);
         if (null != cloudScore) {
             ScoreVO vo = new ScoreVO();

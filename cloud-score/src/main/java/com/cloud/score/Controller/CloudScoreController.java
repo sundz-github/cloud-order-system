@@ -32,7 +32,7 @@ public class CloudScoreController {
 
 
     @GetMapping("{id}")
-    public ScoreVO query(@PathVariable("id") Integer id) {
+    public ScoreVO query(@PathVariable("id") Integer id) throws Exception {
         return scoreService.query(id);
     }
 

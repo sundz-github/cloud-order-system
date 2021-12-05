@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 /**
  * <p>  </p>
  *
@@ -29,7 +30,7 @@ public class CloudPaymentController {
     }
 
     @GetMapping("{id}")
-    public PaymentVO query(@PathVariable("id") Integer id) {
+    public PaymentVO query(@PathVariable("id") Integer id) throws Exception {
         return paymentService.query(id);
     }
 }
