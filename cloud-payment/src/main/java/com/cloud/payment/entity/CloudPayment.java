@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 public class CloudPayment implements Serializable {
+
     private Integer id;
 
     /*private Integer orderId;*/

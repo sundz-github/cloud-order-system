@@ -24,9 +24,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cloud.payment.entity.CloudPayment" useGeneratedKeys="true">
-    insert into cloud_payment (amount, insert_time, update_time)
-    values (#{amount,jdbcType=DOUBLE}, #{insertTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into cloud_payment (amount)
+    values (#{amount,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cloud.payment.entity.CloudPayment" useGeneratedKeys="true">
     insert into cloud_payment

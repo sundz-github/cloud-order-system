@@ -1,8 +1,10 @@
 package com.cloud.order;
 
 import com.cloud.common.entity.OrderInfoVO;
+import com.cloud.common.entity.PaymentVO;
 import com.cloud.common.utils.RequestUtil;
 import com.cloud.order.feign.CloudPaymentFeign;
+import com.cloud.order.feign.CloudScoreFeign;
 import com.cloud.order.mapper.CloudOrderMapper;
 import com.cloud.order.service.CloudOrderService;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,9 @@ class CloudOrderApplicationTests {
     @Autowired
     private CloudPaymentFeign paymentFeign;
 
+    @Autowired
+    private CloudScoreFeign scoreFeign;
+
     private static final String PAYMENT_URL = "http://localhost:3031/payment/";
 
     @Test
@@ -43,7 +48,13 @@ class CloudOrderApplicationTests {
 
     @Test
     public void feignTest() throws Exception{
-        System.out.println(paymentFeign.query(1));
+        /*ScoreVO vo = new ScoreVO();
+        vo.setScore(100.0);
+        vo.setIsSuccess(1);
+        System.out.println(scoreFeign.commit(vo));*/
+        PaymentVO vo = new PaymentVO();
+        vo.setAmount(1000.0);
+        System.out.println(paymentFeign.commit(vo));
     }
 
 

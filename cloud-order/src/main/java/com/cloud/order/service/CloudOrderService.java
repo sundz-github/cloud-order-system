@@ -40,7 +40,7 @@ public class CloudOrderService {
     private CloudPaymentFeign paymentFeign;
 
     @Autowired
-    CloudScoreFeign scoreFeign;
+    private CloudScoreFeign scoreFeign;
 
     private static final String PAYMENT_URL = /*"http://localhost:3031/payment/"*/ "http://cloud-payment/payment/";
 
@@ -59,17 +59,17 @@ public class CloudOrderService {
         PaymentVO paymentVO = new PaymentVO();
         Double amount = orderVO.getAmount();
         paymentVO.setAmount(amount);
-        paymentFeign.commit(paymentVO);
+        Integer paymentId = paymentFeign.commit(paymentVO);
         ScoreVO scoreVO = new ScoreVO();
         scoreVO.setIsSuccess(1);
         // 积分 = 金额 * 10
         scoreVO.setScore(amount * 10);
-        scoreFeign.commit(scoreVO);
+        Integer scoreId = scoreFeign.commit(scoreVO);
         insert.setCustomer(orderVO.getCustomer());
         insert.setOrderNo("T" + DateFormatUtils.format(new Date(), "yyyy-MM-dd") + RandomStringUtils.randomNumeric(3));
-        insert.setPaymentId(paymentVO.getId());
+        insert.setPaymentId(paymentId);
         insert.setGoods(orderVO.getGoods());
-        insert.setScoreId(scoreVO.getId());
+        insert.setScoreId(scoreId);
         orderMapper.insert(insert);
         return "操作成功,订单主键id:" + insert.getId();
     }

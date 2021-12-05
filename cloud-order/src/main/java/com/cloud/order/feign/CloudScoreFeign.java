@@ -2,8 +2,10 @@ package com.cloud.order.feign;
 
 import com.cloud.common.entity.ScoreVO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -18,5 +20,6 @@ public interface CloudScoreFeign {
     @GetMapping("{id}")
     ScoreVO query(@PathVariable("id") Integer id) throws Exception;
 
-    Integer commit(@RequestBody ScoreVO scoreVO);
+    @PostMapping("commit")
+    Integer commit(@RequestBody @Validated ScoreVO scoreVO);
 }

@@ -23,9 +23,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cloud.score.entity.CloudScore" useGeneratedKeys="true">
-    insert into cloud_score (score, is_success, insert_time, update_time)
-    values (#{score,jdbcType=INTEGER}, #{isSuccess,jdbcType=INTEGER},
-      #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into cloud_score (score, is_success)
+    values (#{score,jdbcType=INTEGER}, #{isSuccess,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cloud.score.entity.CloudScore" useGeneratedKeys="true">
     insert into cloud_score

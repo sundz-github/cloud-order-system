@@ -27,13 +27,11 @@
         delete from cloud_order
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.cloud.order.entity.CloudOrder">
+    <insert id="insert" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="com.cloud.order.entity.CloudOrder">
         insert into cloud_order (id, order_no, customer,
-        goods, payment_id, score_id,
-        insert_time, update_time)
+        goods, payment_id, score_id)
         values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR},
-        #{goods,jdbcType=VARCHAR}, #{paymentId,jdbcType=INTEGER}, #{scoreId,jdbcType=INTEGER},
-        #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+        #{goods,jdbcType=VARCHAR}, #{paymentId,jdbcType=INTEGER}, #{scoreId,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.cloud.order.entity.CloudOrder">
         insert into cloud_order
