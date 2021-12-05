@@ -3,6 +3,10 @@ package com.cloud.common.entity;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 /**
  * <p> 订单 </p>
  *
@@ -26,21 +30,20 @@ public class OrderVO {
     /**
      * 用户
      */
+    @NotBlank(message = "用户姓名不能为空")
     private String customer;
 
     /**
      * 商品描述
      */
+    @NotBlank(message = "商品信息不能为空")
     private String goods;
 
     /**
-     * 支付主键
+     * 支付金额
      */
-    private Integer paymentId;
-
-    /**
-     * 积分主键
-     */
-    private Integer scoreId;
+    @NotNull(message = "商品金额不能为null")
+    @PositiveOrZero(message = "商品金额必须为非负数")
+    private Double amount;
 
 }

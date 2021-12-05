@@ -1,9 +1,9 @@
 package com.cloud.score.Controller;
 
-import com.cloud.common.entity.PaymentVO;
 import com.cloud.common.entity.ScoreVO;
 import com.cloud.score.service.CloudScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,7 @@ public class CloudScoreController {
 
 
     @PostMapping("commit")
-    public Integer commit(@RequestBody ScoreVO scoreVO) {
+    public Integer commit(@RequestBody @Validated ScoreVO scoreVO) {
         return scoreService.commit(scoreVO);
     }
 

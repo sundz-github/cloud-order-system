@@ -9,7 +9,7 @@ import java.util.Date;
 public class CloudPayment implements Serializable {
     private Integer id;
 
-    private Integer orderId;
+    /*private Integer orderId;*/
 
     private Double amount;
 

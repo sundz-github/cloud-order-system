@@ -3,6 +3,9 @@ package com.cloud.common.entity;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 /**
  * <p>  </p>
  *
@@ -15,8 +18,9 @@ public class PaymentVO {
 
     private Integer id;
 
-    private Integer orderId;
-
+    /*private Integer orderId;*/
+    @NotNull(message = "金额不能为null")
+    @PositiveOrZero(message = "金额必须为非负数")
     private Double amount;
 
 }

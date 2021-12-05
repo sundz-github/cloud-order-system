@@ -10,9 +10,9 @@ public class CloudScore implements Serializable {
 
     private Integer id;
 
-    private Integer orderId;
+    /*private Integer orderId;*/
 
-    private Integer score;
+    private Double score;
 
     private Integer isSuccess;
 
