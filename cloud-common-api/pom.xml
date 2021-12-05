@@ -7,7 +7,7 @@
     <artifactId>cloud-common-api</artifactId>
     <version>1.0.0</version>
     <name>cloud-common-api</name>
-    <description>Demo project for Spring Boot</description>
+    <description>cloud-common-api</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -16,6 +16,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>2.4.1</version>
         </dependency>
     </dependencies>
 

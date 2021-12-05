@@ -17,7 +17,8 @@ eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
-    service-url: http://eureka.server.com:1010/eureka/  #服务注册地址
+    service-url:
+      defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
 
 mybatis:
   configuration:
