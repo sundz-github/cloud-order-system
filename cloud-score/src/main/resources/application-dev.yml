@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-payment
+    name: cloud-score
 
   datasource:
     username: root
@@ -12,17 +12,16 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 server:
-  port: 3033
+  port: 4041
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 eureka:
   client:
-    fetch-registry: true
     register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
     registry-fetch-interval-seconds: 5  #eureka client配置5s从server同步一次服务列表
-
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:/mapper/*.xml
-

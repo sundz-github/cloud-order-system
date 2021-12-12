@@ -34,4 +34,8 @@ public class CloudOrderController {
     public OrderInfoVO query(@PathVariable("id") Integer id){
         return orderService.query(id);
     }
+
+    @GetMapping("eurekaInfo")
+    public void eurekaInfo(){ orderService.eurekaInfo();
+    }
 }

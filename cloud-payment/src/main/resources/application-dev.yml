@@ -19,6 +19,8 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
+    registry-fetch-interval-seconds: 5  #eureka client配置5s从server同步一次服务列表
+
 
 mybatis:
   configuration:
