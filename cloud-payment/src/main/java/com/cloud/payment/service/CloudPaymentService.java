@@ -51,8 +51,9 @@ public class CloudPaymentService {
      */
     @HystrixCommand(commandProperties = {@HystrixProperty(name = "execution.timeout.enabled", value = "true"),  // 执行是否启用超时，默认启用true
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"), // 命令执行超时时间
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),  // 一个rolling window内最小的请求数
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "3000"), // 触发断路的时间值 超过这个时间关闭断路器
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),  // 是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),  // 请求数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "3000"), // 触发断路的时间值 超过这个时间关闭断路器  开  --》 半开 --》 关闭
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")}  // 错误比率阀值，如果错误率>=该值，circuit会被打开
             , fallbackMethod = "fallbackMethodQuery")
     public PaymentVO query(Integer id) throws Exception {
