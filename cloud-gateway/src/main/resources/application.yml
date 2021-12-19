@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: order-gateway
+
+  # gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order-gateway-id
+          uri: http://localhost:2020
+          predicates:
+            - Path=/order/**
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
+    registry-fetch-interval-seconds: 5  #eureka client配置5s从server同步一次服务列表
+
+server:
+  port: 80
