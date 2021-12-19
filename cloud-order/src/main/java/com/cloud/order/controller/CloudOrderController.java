@@ -31,7 +31,7 @@ public class CloudOrderController {
     }
 
     @GetMapping("{id}")
-    public OrderInfoVO query(@PathVariable("id") Integer id){
+    public OrderInfoVO query(@PathVariable("id") Integer id) throws Exception{
         return orderService.query(id);
     }
 

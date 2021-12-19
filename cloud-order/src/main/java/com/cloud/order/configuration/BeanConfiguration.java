@@ -21,4 +21,10 @@ public class BeanConfiguration {
         return builder.build();
     }
 
+    /*@Bean
+    public ServletListenerRegistrationBean<RequestContextListener> requestContextListener(){
+        ServletListenerRegistrationBean<RequestContextListener> bean = new ServletListenerRegistrationBean<>(new RequestContextListener());
+        return bean;
+    }*/
+
 }

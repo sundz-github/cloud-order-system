@@ -21,6 +21,7 @@
         <module>cloud-order</module>
         <module>cloud-eureka-server</module>
         <module>cloud-common-api</module>
+        <module>cloud-turbine</module>
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -18,6 +18,9 @@ public class RequestUtil {
      */
     public static int getReuqestPort(){
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        return requestAttributes.getRequest().getLocalPort();
+        if (null != requestAttributes) {
+            return requestAttributes.getRequest().getLocalPort();
+        }
+        return -1;
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * <p>  </p>
@@ -31,7 +33,7 @@ public class CloudPaymentController {
     }
 
     @GetMapping("{id}")
-    public PaymentVO query(@PathVariable("id") Integer id) throws Exception {
-        return paymentService.query(id);
+    public PaymentVO query(@PathVariable("id") Integer id, HttpServletRequest request) throws Exception {
+        return paymentService.query(id, request.getLocalPort());
     }
 }

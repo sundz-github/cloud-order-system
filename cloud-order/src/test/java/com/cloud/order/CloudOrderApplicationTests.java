@@ -27,16 +27,16 @@ class CloudOrderApplicationTests {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
+    @Resource
     private CloudPaymentFeign paymentFeign;
 
-    @Autowired
+    @Resource
     private CloudScoreFeign scoreFeign;
 
     private static final String PAYMENT_URL = "http://localhost:3031/payment/";
 
     @Test
-    public void queryTest() {
+    public void queryTest() throws Exception{
         OrderInfoVO query = orderService.query(1);
         System.out.println(query);
     }

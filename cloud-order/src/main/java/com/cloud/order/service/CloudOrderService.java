@@ -4,6 +4,7 @@ import com.cloud.common.entity.OrderInfoVO;
 import com.cloud.common.entity.OrderVO;
 import com.cloud.common.entity.PaymentVO;
 import com.cloud.common.entity.ScoreVO;
+import com.cloud.common.utils.RequestUtil;
 import com.cloud.order.entity.CloudOrder;
 import com.cloud.order.feign.CloudPaymentFeign;
 import com.cloud.order.feign.CloudScoreFeign;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 
@@ -87,8 +89,9 @@ public class CloudOrderService {
      * @param id
      * @return {@link OrderInfoVO}
      */
-    public OrderInfoVO query(Integer id) {
+    public OrderInfoVO query(Integer id) throws Exception{
         log.info("订单服务处理线程:{}", Thread.currentThread().getName());
+        log.info("支付服务ip信息:{}", InetAddress.getLocalHost().getHostAddress() + ":" + RequestUtil.getReuqestPort());
         OrderInfoVO vo = new OrderInfoVO();
         CloudOrder cloudOrder = orderMapper.selectByPrimaryKey(id);
         if (null != cloudOrder) {
