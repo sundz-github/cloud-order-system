@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-order
+    name: cloud-score
 
   datasource:
     username: root
@@ -12,44 +12,16 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 server:
-  port: 2020
-
+  port: 4042
 mybatis:
-  mapper-locations: classpath:/mapper/*xml
+  mapper-locations: classpath:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
-    register-with-eureka: false
+    register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: http://eureka.server.com:1010/eureka/  #服务注册地址
     registry-fetch-interval-seconds: 5  #eureka client配置5s从server同步一次服务列表
-
-ribbon:
-  eager-load:
-    enabled: true
-
-#开启feign支持hystrix  (注意，一定要开启，旧版本默认支持，新版本默认关闭)
-# #修改调用超时时间（默认是1秒就算超时）
-feign:
-  hystrix:
-    enabled: true
-  client:
-    config:
-      default:
-        connectTimeout: 2000
-        readTimeout: 2000
-
-#暴露hystrix.stream的监控信息
-management:
-  endpoints:
-    web:
-      exposure:
-        include: 'hystrix.stream'
-hystrix:
-  dashboard:
-    proxy-stream-allow-list: '**'

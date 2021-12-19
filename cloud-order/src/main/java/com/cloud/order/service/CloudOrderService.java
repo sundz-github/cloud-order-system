@@ -4,6 +4,7 @@ import com.cloud.common.entity.OrderInfoVO;
 import com.cloud.common.entity.OrderVO;
 import com.cloud.common.entity.PaymentVO;
 import com.cloud.common.entity.ScoreVO;
+import com.cloud.common.utils.RequestUtil;
 import com.cloud.order.entity.CloudOrder;
 import com.cloud.order.feign.CloudPaymentFeign;
 import com.cloud.order.feign.CloudScoreFeign;
@@ -13,12 +14,15 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.net.InetAddress;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>  </p>
@@ -41,6 +45,10 @@ public class CloudOrderService {
 
     @Autowired
     private CloudScoreFeign scoreFeign;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
 
     private static final String PAYMENT_URL = /*"http://localhost:3031/payment/"*/ "http://cloud-payment/payment/";
 
@@ -81,27 +89,34 @@ public class CloudOrderService {
      * @param id
      * @return {@link OrderInfoVO}
      */
-    public OrderInfoVO query(Integer id) {
+    public OrderInfoVO query(Integer id) throws Exception{
+        log.info("订单服务处理线程:{}", Thread.currentThread().getName());
+        log.info("支付服务ip信息:{}", InetAddress.getLocalHost().getHostAddress() + ":" + RequestUtil.getReuqestPort());
         OrderInfoVO vo = new OrderInfoVO();
         CloudOrder cloudOrder = orderMapper.selectByPrimaryKey(id);
         if (null != cloudOrder) {
             BeanUtils.copyProperties(cloudOrder, vo);
-        }
-        // ResponseEntity<PaymentVO> paymentEntity = restTemplate.getForEntity(PAYMENT_URL+"{id}", PaymentVO.class, id);
-        try {
-            PaymentVO payment = paymentFeign.query(id);
-            if (null != payment) {
-                vo.setPaymentVO(payment);
+            // ResponseEntity<PaymentVO> paymentEntity = restTemplate.getForEntity(PAYMENT_URL+"{id}", PaymentVO.class, id);
+            try {
+                PaymentVO payment = paymentFeign.query(cloudOrder.getPaymentId());
+                if (null != payment) {
+                    vo.setPaymentVO(payment);
+                }
+                // ResponseEntity<ScoreVO> scoreEntity = restTemplate.getForEntity(SCORE_URL+"{id}", ScoreVO.class, id);
+                ScoreVO score = scoreFeign.query(cloudOrder.getScoreId());
+                if (null != score) {
+                    vo.setScoreVO(score);
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
             }
-            // ResponseEntity<ScoreVO> scoreEntity = restTemplate.getForEntity(SCORE_URL+"{id}", ScoreVO.class, id);
-            ScoreVO score = scoreFeign.query(id);
-            if (null != score) {
-                vo.setScoreVO(score);
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
         }
         return vo;
+    }
+
+    public void eurekaInfo(){
+        List<String> services = discoveryClient.getServices();
+        log.info("services:{}", services);
     }
 
 }
