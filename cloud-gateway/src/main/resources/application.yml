@@ -7,9 +7,18 @@ spring:
     gateway:
       routes:
         - id: order-gateway-id
-          uri: http://localhost:2020
+          uri: lb://cloud-payment
+          order: 0
           predicates:
-            - Path=/order/**
+#            - Path=/payment/{id}
+            - Method=GET
+#            - Query=id,\d+
+          filters:
+#            添加请求头
+            - AddRequestHeader=id,10
+#            添加统一的请求路径
+            - PrefixPath=/payment
+
 
 eureka:
   instance:

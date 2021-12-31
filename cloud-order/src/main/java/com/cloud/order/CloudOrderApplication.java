@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
-@SpringBootApplication()
+@SpringBootApplication
 @MapperScan(value = {"com.cloud.order.mapper"})
 @Log4j2
 @EnableEurekaClient
