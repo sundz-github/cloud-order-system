@@ -38,4 +38,9 @@ public class CloudOrderController {
     @GetMapping("eurekaInfo")
     public void eurekaInfo(){ orderService.eurekaInfo();
     }
+
+    @GetMapping("test/httpRequest")
+    public String httpRequest(){
+       return orderService.httpRequest();
+    }
 }

@@ -1,6 +1,7 @@
 package com.cloud.order.feign;
 
 import com.cloud.common.entity.PaymentVO;
+import com.cloud.order.configuration.FeignConfiguration;
 import com.cloud.order.fallback.CloudPaymentFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author Sundz
  * @date 2021/12/4 21:48
  */
-@FeignClient(value = "CLOUD-PAYMENT", path = "payment", fallback = CloudPaymentFallBack.class)
+@FeignClient(value = "CLOUD-PAYMENT", path = "payment", fallback = CloudPaymentFallBack.class, configuration = FeignConfiguration.class)
 public interface CloudPaymentFeign {
 
     @GetMapping("{id}")
@@ -23,5 +24,8 @@ public interface CloudPaymentFeign {
 
     @PostMapping("commit")
     Integer commit(@RequestBody @Validated PaymentVO paymentVO);
+
+    @GetMapping("test/httpRequest")
+    String httpRequest();
 
 }

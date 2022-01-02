@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 
 /**
@@ -35,5 +37,17 @@ public class CloudPaymentController {
     @GetMapping("{id}")
     public PaymentVO query(@PathVariable("id") Integer id, HttpServletRequest request) throws Exception {
         return paymentService.query(id, request.getLocalPort());
+    }
+
+    @GetMapping("test/httpRequest")
+    public String httpRequest(HttpServletRequest request,HttpServletResponse response) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        StringBuilder builder = new StringBuilder();
+        while (headerNames.hasMoreElements()) {
+            String nextElement = headerNames.nextElement();
+            builder.append("{" + nextElement + ":").append(request.getHeader(nextElement)).append("\n");
+        }
+        builder.append("}");
+        return builder.toString();
     }
 }

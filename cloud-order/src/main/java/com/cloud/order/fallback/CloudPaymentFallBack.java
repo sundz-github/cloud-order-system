@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>  </p>
+ * <p> 熔断降级 </p>
  *
  * @author Sundz
  * @date 2021/12/12 21:24
@@ -23,6 +23,12 @@ public class CloudPaymentFallBack implements CloudPaymentFeign {
 
     @Override
     public Integer commit(PaymentVO paymentVO) {
+        log.error("<--------------------支付服务提交熔断了-------------------->");
+        return null;
+    }
+
+    @Override
+    public String httpRequest() {
         log.error("<--------------------支付服务提交熔断了-------------------->");
         return null;
     }

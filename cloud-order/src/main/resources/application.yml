@@ -40,9 +40,20 @@ feign:
     enabled: true
   client:
     config:
+#      # 要调用服务的名称
+#      user-center:
+#        loggerLevel: full
       default:
         connectTimeout: 2000
         readTimeout: 2000
+
+  httpclient:
+    enabled: true
+    connection-timeout: 5000
+    # 最大连接数
+    max-connections: 400
+    # 每个服务占用的连接最大数
+    max-connections-per-route: 60
 
 #暴露hystrix.stream的监控信息
 management:
@@ -54,3 +65,10 @@ hystrix:
   dashboard:
     proxy-stream-allow-list: '**'
 
+#配置Feign日志
+logging:
+  level:
+    com:
+      cloud:
+        order:
+          feign: DEBUG

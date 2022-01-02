@@ -40,10 +40,10 @@ public class CloudOrderService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
+    @Resource
     private CloudPaymentFeign paymentFeign;
 
-    @Autowired
+    @Resource
     private CloudScoreFeign scoreFeign;
 
     @Autowired
@@ -89,7 +89,7 @@ public class CloudOrderService {
      * @param id
      * @return {@link OrderInfoVO}
      */
-    public OrderInfoVO query(Integer id) throws Exception{
+    public OrderInfoVO query(Integer id) throws Exception {
         log.info("订单服务处理线程:{}", Thread.currentThread().getName());
         log.info("支付服务ip信息:{}", InetAddress.getLocalHost().getHostAddress() + ":" + RequestUtil.getReuqestPort());
         OrderInfoVO vo = new OrderInfoVO();
@@ -114,9 +114,17 @@ public class CloudOrderService {
         return vo;
     }
 
-    public void eurekaInfo(){
+    public void eurekaInfo() {
         List<String> services = discoveryClient.getServices();
         log.info("services:{}", services);
+    }
+
+    /**
+     *  测试往请求头添加参数
+     * @return {@link String}
+     */
+    public String httpRequest() {
+        return paymentFeign.httpRequest();
     }
 
 }
